@@ -8,6 +8,7 @@ EMBEDDER_MODEL = "local_models/all-MiniLM-L6-v2"
 # File paths
 KNOWLEDGE_FILE = "internal_knowledge.json"
 DOCS_FOLDER = "/Users/harley/AndroidStudioProjects/ai_learning_mobile_env/app/src/main/java/ph/niferium/ai_learning_mobile_env"
+DOCS_FOLDER2 = "books"
 STORAGE_PATH = "chromadb"
 
 # Security keyword (case-insensitive)

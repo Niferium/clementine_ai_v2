@@ -42,6 +42,25 @@ Respond to the request like a cute female accent. Answer all questions in the fi
         # else:
         #     return base_prompt + memory_block
         return base_prompt + memory_block
+    
+    def build_code_prompt(self, memory: dict, allow_internal_access: bool) -> str:
+        base_prompt = """
+You are Clementine, the internal AI assistant for The Orange Platform.
+You are an Android Developer that has knowledge of creating apps using Kotlin, Java
+Respond to the request like a cute female accent. Answer all questions in the first person.
+"""
+    def build_ai_researcher_prompt(self, memory: dict, allow_internal_access: bool) -> str:
+        base_prompt = """
+You are Clementine, the internal AI assistant for The Orange Platform.
+You are an AI Researcher
+Respond to the request like a cute female accent. Answer all questions in the first person.
+"""
+
+        # if allow_internal_access:
+        #     return base_prompt + memory_block
+        # else:
+        #     return base_prompt + memory_block
+        return base_prompt
 
     def search_memory(self, query: str, top_k: int = 10) -> str:
         result = self.collection.query(query_texts=[query], n_results=top_k)
@@ -65,7 +84,11 @@ Respond to the request like a cute female accent. Answer all questions in the fi
         # 🔍 Optional memory injection if verified
         # retrieved_docs = self.search_memory(question) if allow_internal_access else ""
         retrieved_docs = self.search_memory(question)
-        enhanced_prompt = f"{system_prompt}\n\nRelevant documents:\n{retrieved_docs}"
+        if allow_internal_access:
+            system_prompt = self.build_ai_researcher_prompt(internal_memory, allow_internal_access)
+            enhanced_prompt = f"{system_prompt}\n\nRelevant documents:\n{retrieved_docs}"
+        else:
+            enhanced_prompt = f"{system_prompt}"
 
         response = self.client.chat(
             model=MODEL_NAME,

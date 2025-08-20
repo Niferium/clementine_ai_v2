@@ -1,7 +1,7 @@
 import os
 from chromadb.utils import embedding_functions
 from chromadb import PersistentClient
-from config import STORAGE_PATH, COLLECTION_NAME, DOCS_FOLDER, EMBEDDER_MODEL
+from config import STORAGE_PATH, COLLECTION_NAME, DOCS_FOLDER, DOCS_FOLDER2, EMBEDDER_MODEL
 import sys
 
 # 🌟 Step 1: Load embedding model once
@@ -99,7 +99,30 @@ def handle_file(root, file, collection):
     print("Finished from android files")
 
 docs_path = DOCS_FOLDER
-ingest_project([docs_path], collection, recursive=False)
+# ingest_project([docs_path], collection, recursive=False)
+
+
+
+docs_path = DOCS_FOLDER2
+for filename in os.listdir(docs_path):
+    file_path = os.path.join(docs_path, filename)
+    if not os.path.isfile(file_path):
+        continue
+
+    with open(file_path, 'r', encoding='utf-8',  errors='ignore') as f:
+        content = f.read()
+        print(f"Length: {len(content)}")
+        print(content[:500]) 
+        # chunks = content.split("\n\n")  # Split by paragraphs
+        chunks = split_text(content, chunk_size=500, overlap=100)
+        
+        for i, chunk in enumerate(chunks):
+            if not chunk.strip():
+                continue
+            collection.add(
+                documents=[chunk],
+                ids=[f"{filename}_{i}"]
+            )
 # filename = os.path.basename(DOCS_FOLDER)
 # print(filename)
 
