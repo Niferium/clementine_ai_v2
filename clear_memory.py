@@ -1,6 +1,6 @@
 # clear_memory.py
 
-from chromadb import PersistentClient
+from local_chromadb import PersistentClient
 from config import STORAGE_PATH, COLLECTION_NAME
 
 # Path to Clementine's stored memory

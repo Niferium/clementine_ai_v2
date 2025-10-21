@@ -1,6 +1,6 @@
 # internal_ai_wrapper.py
 
-from clementine_core import ClementineCore
+from clementine_core_old import ClementineCore
 import json
 import sys
 import time

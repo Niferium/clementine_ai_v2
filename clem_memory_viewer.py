@@ -1,10 +1,10 @@
 # clementine_memory_viewer.py
-import chromadb
+import local_chromadb
 from collections import Counter
 import argparse
 
 # :blossom: Connect to ChromaDB
-chroma_client = chromadb.PersistentClient(path="chromadb")
+chroma_client = local_chromadb.PersistentClient(path="chromadb")
 collection = chroma_client.get_collection("clementine-memory")
 def list_all_entries():
     results = collection.get()

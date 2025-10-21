@@ -103,29 +103,7 @@ docs_path = DOCS_FOLDER
 
 
 
-docs_path = DOCS_FOLDER2
-for filename in os.listdir(docs_path):
-    file_path = os.path.join(docs_path, filename)
-    if not os.path.isfile(file_path):
-        continue
-
-    with open(file_path, 'r', encoding='utf-8',  errors='ignore') as f:
-        content = f.read()
-        print(f"Length: {len(content)}")
-        print(content[:500]) 
-        # chunks = content.split("\n\n")  # Split by paragraphs
-        chunks = split_text(content, chunk_size=500, overlap=100)
-        
-        for i, chunk in enumerate(chunks):
-            if not chunk.strip():
-                continue
-            collection.add(
-                documents=[chunk],
-                ids=[f"{filename}_{i}"]
-            )
-# filename = os.path.basename(DOCS_FOLDER)
-# print(filename)
-
+# docs_path = DOCS_FOLDER2
 # for filename in os.listdir(docs_path):
 #     file_path = os.path.join(docs_path, filename)
 #     if not os.path.isfile(file_path):
@@ -145,6 +123,28 @@ for filename in os.listdir(docs_path):
 #                 documents=[chunk],
 #                 ids=[f"{filename}_{i}"]
 #             )
+filename = os.path.basename(DOCS_FOLDER)
+print(filename)
+
+for filename in os.listdir(docs_path):
+    file_path = os.path.join(docs_path, filename)
+    if not os.path.isfile(file_path):
+        continue
+
+    with open(file_path, 'r', encoding='utf-8',  errors='ignore') as f:
+        content = f.read()
+        print(f"Length: {len(content)}")
+        print(content[:500]) 
+        # chunks = content.split("\n\n")  # Split by paragraphs
+        chunks = split_text(content, chunk_size=500, overlap=100)
+        
+        for i, chunk in enumerate(chunks):
+            if not chunk.strip():
+                continue
+            collection.add(
+                documents=[chunk],
+                ids=[f"{filename}_{i}"]
+            )
 
 
 

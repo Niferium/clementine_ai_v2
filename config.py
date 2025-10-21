@@ -1,7 +1,8 @@
 # config.py
 
 # Configuration constants
-MODEL_NAME = "deepseek-r1:7b"
+# MODEL_NAME = "deepseek-r1:7b"
+MODEL_NAME = "deepseek-coder-v2:16b"
 COLLECTION_NAME = "clementine-memory"
 EMBEDDER_MODEL = "local_models/all-MiniLM-L6-v2"
 
